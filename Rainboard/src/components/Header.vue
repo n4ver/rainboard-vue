@@ -29,6 +29,7 @@ export default {
                                         </svg>
                                     </span>
                                     <input type="text" v-model="search" id="search" style="background: none" required placeholder="Search..." class=" border-none outline-none text-white px-2 text-lg"/>
+                                    <button type="submit" @click.stop.prevent="submit()" style="visibility: hidden">Submit</button>
                                 </div>
                             </form>
                         </div>
