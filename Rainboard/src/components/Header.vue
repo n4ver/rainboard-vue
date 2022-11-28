@@ -24,7 +24,7 @@ export default {
             log = regex3.exec(this.search)![2];
         }
 
-      this.$router.push("/log/" + log);
+        this.$router.push("/log/" + log);
     },
     validate() {
         const regex1 = /^(https:\/\/logs\.tf\/)(\d+)(#\d+)$/
