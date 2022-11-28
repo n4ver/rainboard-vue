@@ -10,6 +10,7 @@ import realAliases from "../data/aliases.json"
 export default {
     data() {
         return {
+            steamID: [],
             names: [],
             players: [],
             aliases: realAliases
@@ -23,19 +24,33 @@ export default {
                 const response = await axios.get(URI);
                 console.log(response.status);
                 this.names = response.data.names;
+                this.steamID = Object.keys(this.names);
                 this.players = response.data.players;
 
-                for (let i = 0; i < this.names.length; i++) {
-                    let classInfo = this.players[this.names[i]];
-                    console.log(classInfo);
-                    console.log(i);
-                }
+                // for (let i = 0; i < this.names.length; i++) {
+                //     let classInfo = this.players[this.names[i]];
+                //     console.log(classInfo);
+                //     console.log(i);
+                // }
 
             } catch (error) {
                 console.log(error);
             }
 
 
+        }
+    },
+    computed: {
+        getRealAliases() {
+            let lst:string[] = [];
+            for (let i = 0; i < this.steamID.length; i++) {
+                if (this.aliases[this.steamID[i]]) {
+                    lst.push(this.aliases[this.steamID[i]]);
+                } else {
+                    lst.push(this.names[this.steamID[i]])
+                }
+            }
+            return lst;
         }
     },
     created() {
@@ -51,8 +66,12 @@ export default {
             <p class="my-6">
                 Log {{ $route.params.slug}}
             </p>
-            <div id="json-response" v-if="names">
-                {{ names }}
+            <div id="json-response" v-if="steamID">
+                <li v-for="aliase in getRealAliases">
+                    {{ aliase }}
+                </li>
+                <div> {{ steamID }}</div>
+                <div> {{ realAliases }}</div>
             </div>
         </div>
     </main>

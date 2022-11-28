@@ -55,7 +55,7 @@ export default {
                 <div id="head-wrapper" class="flex-none h-full w-full flex-nowrap">
                     <div id="nav-bar" class="flex items-center bg-gradient-to-r from-indigo-500 gap-4 h-16 px-1 uppercase">
                         <div id="search-wrapper" class="flex px-4 w-80">
-                            <form id="search-bar" class="flex w-full" @submit="validate">
+                            <form id="search-bar" class="flex w-full" @submit="validate" autocomplete="off">
                                 <div class="flex flex-row flex-nowrap bg-indigo-900 rounded-full min-h-full pl-2 w-full">
                                     <span class="flex flex-row flex-nowrap gap-2 items-center justify-center">
                                         <button type="submit" @click.stop.prevent="submit()">
