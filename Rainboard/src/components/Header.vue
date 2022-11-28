@@ -9,7 +9,6 @@ export default {
   methods: {
     submit() {
         //if you want to send any data into server before redirection then you can do it here
-        console.log(this.search);
         let log = ""
         const regex1 = /^(https:\/\/logs\.tf\/)(\d+)(#\d+)$/
         const regex2 = /^(https:\/\/logs\.tf\/)(\d+)(#)$/

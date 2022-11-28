@@ -23,4 +23,6 @@ const router = createRouter({
 
 export default router
 
-createApp(App).use(router).mount('#app')
+createApp(App)
+.use(router)
+.mount('#app')
