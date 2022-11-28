@@ -10,11 +10,11 @@ import realAliases from "../data/aliases.json"
 export default {
     data() {
         return {
+            slug: this.$route.params.slug,
             steamID: Array(),
             names: Array(),
             players: Array(),
             aliases: realAliases,
-            isFetching: true,
         };
     },
     methods: {
@@ -23,10 +23,11 @@ export default {
                 let log = this.$route.params.slug;
                 let URI = 'http://logs.tf/api/v1/log/' + log;
                 const response = await axios.get(URI);
-                console.log(response.status);
-                this.names = response.data.names;
-                this.steamID = Object.keys(this.names);
-                this.players = response.data.players;
+                    console.log(response.status);
+
+                    this.names = response.data.names;
+                    this.steamID = Object.keys(this.names);
+                    this.players = response.data.players;
 
                 // for (let i = 0; i < this.names.length; i++) {
                 //     let classInfo = this.players[this.names[i]];
@@ -37,7 +38,6 @@ export default {
             } catch (error) {
                 console.log(error);
             }
-            this.isFetching = false;
 
 
         }
@@ -70,10 +70,10 @@ export default {
 
 <template>
     <Header/>
-    <main class="mb-auto bg-[#00ff00] h-screen" v-if="!isFetching">
+    <main class="mb-auto bg-[#00ff00] h-screen">
         <div class="p-4 mx-auto max-w-screen-md text-center">
             <p class="my-6">
-                Log {{ $route.params.slug}}
+                Log {{ slug }}
             </p>
             <div id="json-response" v-if="steamID">
                 <div class="flex flex-horizontal gap-12 justify-center text-lg uppercase">

@@ -1,4 +1,5 @@
 <script lang="ts">
+
 export default {
   data(){
     return {
@@ -43,8 +44,8 @@ export default {
             }
             return true;
         }
-
-    }
+    },
+    
   }
 }
 </script>
