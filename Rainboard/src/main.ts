@@ -4,10 +4,13 @@ import './style.css'
 import App from './App.vue'
 import Index from './views/Index.vue'
 import About from './views/About.vue'
+import PathNotFound from './views/PathNotFound.vue'
 
 const routes = [
     {path: '/', name: 'Index', component: Index},
-    {path: '/about', name: 'About', component: About}
+    {path: '/about', name: 'About', component: About},
+    {path: '/404', name: '404', component: PathNotFound},
+    {path: '/:pathMatch(.*)*', redirect: '/404' },
 
 ]
 

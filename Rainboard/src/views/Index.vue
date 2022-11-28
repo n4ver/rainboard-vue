@@ -6,7 +6,7 @@ import Footer from "../components/Footer.vue"
 <template>
     <Header/>
     <main class="mb-auto">
-        <div class="p-4 mx-auto max-w-screen-md">
+        <div class="p-4 mx-auto max-w-screen-md text-center">
             <p class="my-6">
                 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
             </p>
