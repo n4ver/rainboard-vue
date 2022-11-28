@@ -10,10 +10,11 @@ import realAliases from "../data/aliases.json"
 export default {
     data() {
         return {
-            steamID: [],
-            names: [],
-            players: [],
-            aliases: realAliases
+            steamID: Array(),
+            names: Array(),
+            players: Array(),
+            aliases: realAliases,
+            isFetching: true,
         };
     },
     methods: {
@@ -36,21 +37,29 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+            this.isFetching = false;
 
 
         }
     },
     computed: {
-        getRealAliases() {
-            let lst:string[] = [];
+        GetTeamWithAliases() {
+            let red:string[] = [];
+            let blu:string[] = [];
             for (let i = 0; i < this.steamID.length; i++) {
-                if (this.aliases[this.steamID[i]]) {
-                    lst.push(this.aliases[this.steamID[i]]);
+                if (this.aliases[this.steamID[i] as keyof typeof this.aliases]) { // long for removing TS error
+                    if (this.players[this.steamID[i]].team == "Red")
+                        red.push(this.aliases[this.steamID[i] as keyof typeof this.aliases]); // can be shortened to same statement as below
+                    if (this.players[this.steamID[i]].team == "Blue")
+                        blu.push(this.aliases[this.steamID[i] as keyof typeof this.aliases]); // but changed this.aliases to this.names
                 } else {
-                    lst.push(this.names[this.steamID[i]])
+                    if (this.players[this.steamID[i]].team == "Red")
+                        red.push(this.names[this.steamID[i]]);
+                    if (this.players[this.steamID[i]].team == "Blue")
+                        blu.push(this.names[this.steamID[i]]);
                 }
             }
-            return lst;
+            return [{"Red":red}, {"Blue":blu}];
         }
     },
     created() {
@@ -61,17 +70,26 @@ export default {
 
 <template>
     <Header/>
-    <main class="mb-auto">
+    <main class="mb-auto bg-[#00ff00] h-screen" v-if="!isFetching">
         <div class="p-4 mx-auto max-w-screen-md text-center">
             <p class="my-6">
                 Log {{ $route.params.slug}}
             </p>
             <div id="json-response" v-if="steamID">
-                <li v-for="aliase in getRealAliases">
-                    {{ aliase }}
-                </li>
-                <div> {{ steamID }}</div>
-                <div> {{ realAliases }}</div>
+                <div class="flex flex-horizontal gap-12 justify-center text-lg uppercase">
+                    <h1>Red</h1>
+                    <h1>Blu</h1>
+                </div>
+                <div class="flex justify-center align-center gap-8">
+                    <div v-for="team in GetTeamWithAliases">
+                        <div v-for="player in team.Red">
+                            <p class="text-left">{{ player }}</p>
+                        </div>
+                        <div v-for="player in team.Blue">
+                            <p class="text-right">{{ player }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
